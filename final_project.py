@@ -13,7 +13,10 @@ import matplotlib.pyplot as plt
 
 def main():
     # complete data processing here and call methods for visualization or analysis
-    print("hello world")
+    
+    # read csv files
+    diabetes_data = pd.read_csv("diabetes.csv")
+    insurance_data = pd.read_csv("insurance.csv")
 
 
 if __name__ == "__main__":
