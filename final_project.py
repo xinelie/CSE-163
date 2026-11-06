@@ -16,7 +16,8 @@ def main():
     
     # read csv files
     diabetes_data = pd.read_csv("diabetes.csv")
-    insurance_data = pd.read_csv("insurance.csv")
+    poverty_data = pd.read_csv("poverty.csv", skiprows=2)
+    insurance_data = pd.read_csv("insurance.csv", skiprows=6)
 
 
 if __name__ == "__main__":
