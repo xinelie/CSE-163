@@ -6,6 +6,7 @@ Final Project
 
 # import libraries
 import pandas as pd
+import geopandas as gpd
 import matplotlib.pyplot as plt
 
 # methods
@@ -29,7 +30,18 @@ def main():
                              & diabetes_condition 
                              & time_condition 
                              & (stratification1 | stratification2)]
+    diabetes['Data Value'] = pd.to_numeric(diabetes['Data Value'])
     # print(diabetes['Stratification Group 1'])
+    # print(diabetes['Data Type Label'])
+    # print(diabetes['Data Value'])
+
+    """
+    plan:
+    races: non-hispanic black, non-hispanic white, hispanic, and non-hispanic other races
+        the other data comes with additional races. 
+    data types: estimated cases (in thousands), rate (per 100)
+        we will need to work with these cases separately. we can probably pick just one. 
+    """
 
     # filter poverty data
     poverty = poverty_data[poverty_data['Location'] == 'Washington']
