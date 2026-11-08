@@ -81,19 +81,20 @@ def merge_q1(diabetes: pd.DataFrame, insurance: pd.DataFrame) -> pd.DataFrame:
 
 def visualize_q1_fig1(data: pd.DataFrame): 
     """
-    How is health insurance coverage by race associated with the
-    burden of diabetes across Washington State?
+    Scatter plot to show the relationship between uninsured rates and diabetes prevalence.
     """
     uninsured = data[data['Coverage Type'] == 'Uninsured']
 
-    sns.relplot(
+    graph = sns.relplot(
         data=uninsured,
-        x='Data', # Insurance percentages
-        y='Data Value', # Diabetes Prevalence
+        x='Data',
+        y='Data Value',
         hue='Race / Ethnicity',
-        style='Race / Ethnicity', # we support color blind people
-        s=250,
-    )
+        style='Race / Ethnicity',
+        s=250
+)
+
+    sns.move_legend(graph, "upper right", bbox_to_anchor=(0.975, 0.9))
 
     plt.xlabel("Percentage of Uninsured (%)")
     plt.ylabel("Diabetes Prevalence Rate (Per 100)")
@@ -103,32 +104,38 @@ def visualize_q1_fig1(data: pd.DataFrame):
     plt.ylim(6, 15)
     plt.tight_layout()
 
-    plt.savefig('Uninsured_vs_Diabetes.jpg')
+    plt.savefig("q1_1.jpg")
 
 
 def visualize_q1_fig2(data: pd.DataFrame):
+    # Separate insured and uninsured data
     insurance = data.pivot_table(
-        index="Race / Ethnicity",
-        columns="Coverage Type",
-        values="Data",
-        aggfunc="first")
+        index='Race / Ethnicity',
+        columns='Coverage Type',
+        values='Data',
+        aggfunc='first')
 
-    plt.figure(figsize=(10, 7))
+    # Get diabetes prevalence for each race
+    diabetes = data.groupby('Race / Ethnicity')['Data Value'].first()
 
-    sns.heatmap(
-        insurance,
-        annot=True,
-        cmap="YlGnBu",
-        fmt=".1f")
+    # Calculate the proportional diabetes prevalence
+    insured = diabetes * (insurance['Insured'] / 100)
+    uninsured = diabetes * (insurance['Uninsured'] / 100)
 
-    plt.xlabel("Insurance Coverage Type")
-    plt.ylabel("Race / Ethnicity")
+    plt.figure(figsize=(10, 6))
+
+    plt.bar(diabetes.index, insured, label="Insured")
+    plt.bar(diabetes.index, uninsured, bottom=insured, label="Uninsured")
+
+    plt.xlabel("Race / Ethnicity")
+    plt.ylabel("Diabetes Prevalence (per 100)")
+    plt.title("Diabetes Prevalence Divided by Insurance Status")
+
     plt.xticks(rotation=45)
+    plt.legend(title="Insurance Status")
+    plt.tight_layout()
 
-    plt.title("Insurance Coverage by Race in Washington")
-    plt.subplots_adjust(bottom=0.25)
-
-    plt.savefig('Insurance_by_Race.jpg', bbox_inches='tight')
+    plt.savefig('q1_2.jpg')
     plt.show()
 
 
@@ -151,6 +158,7 @@ def main():
     # visualizations
     visualize_q1_fig1(q1) 
     visualize_q1_fig2(q1)
+
 
 if __name__ == "__main__":
     main()
