@@ -47,6 +47,7 @@ def q1_fig1(data: pd.DataFrame):
                  labels={'value': 'Diabetes Prevalence (per 100)',
                          'variable': 'Insurance Status'})
 
+    fig.write_html("q1_1.html")
     fig.show()
 
 
@@ -78,7 +79,8 @@ def q1_fig2(data: pd.DataFrame):
         color='Coverage Type',
         barmode='stack',
         title='Diabetes Prevalence vs. Insurance Coverage Type')
-
+    
+    fig.write_html("q1_2.html")
     fig.show()
 
 
