@@ -79,35 +79,7 @@ def merge_q1(diabetes: pd.DataFrame, insurance: pd.DataFrame) -> pd.DataFrame:
     return merged
 
 
-def visualize_q1_fig1(data: pd.DataFrame): 
-    """
-    Scatter plot to show the relationship between uninsured rates and diabetes prevalence.
-    """
-    uninsured = data[data['Coverage Type'] == 'Uninsured']
-
-    graph = sns.relplot(
-        data=uninsured,
-        x='Data',
-        y='Data Value',
-        hue='Race / Ethnicity',
-        style='Race / Ethnicity',
-        s=250
-)
-
-    sns.move_legend(graph, "upper right", bbox_to_anchor=(0.975, 0.9))
-
-    plt.xlabel("Percentage of Uninsured (%)")
-    plt.ylabel("Diabetes Prevalence Rate (Per 100)")
-    plt.title("Diabetes Prevalence Rate vs. Percentage of Uninsured by Race")
-
-    # plt.xticks([])
-    plt.ylim(6, 15)
-    plt.tight_layout()
-
-    plt.savefig("q1_1.jpg")
-
-
-def visualize_q1_fig2(data: pd.DataFrame):
+def visualize_q1_fig1(data: pd.DataFrame):
     """
     DOCUMENT!!!
     """
@@ -125,17 +97,64 @@ def visualize_q1_fig2(data: pd.DataFrame):
     insured = diabetes * (insurance['Insured'] / 100)
     uninsured = diabetes * (insurance['Uninsured'] / 100)
 
-    plt.figure(figsize=(10, 6))
+    plt.figure(figsize=(10, 7))
 
     plt.bar(diabetes.index, insured, label="Insured")
     plt.bar(diabetes.index, uninsured, bottom=insured, label="Uninsured")
 
     plt.xlabel("Race / Ethnicity")
     plt.ylabel("Diabetes Prevalence (per 100)")
-    plt.title("Diabetes Prevalence Divided by Insurance Status")
+    plt.title("Diabetes Prevalence Vs. Insurance Status")
 
     plt.xticks(rotation=45)
     plt.legend(title="Insurance Status")
+    plt.tight_layout()
+
+    plt.savefig('q1_1.jpg')
+
+
+def visualize_q1_fig2(data: pd.DataFrame):
+    """
+    DOCUMENT!!!
+    """
+    # separate insurance coverage categories
+    insurance = data.pivot_table(
+        index='Race / Ethnicity',
+        columns='Coverage Type',
+        values='Data',
+        aggfunc='first')
+
+    # remove insured and uninsured
+    insurance = insurance.drop(columns=['Insured', 'Uninsured'])
+
+    # get diabetes prevalence for each race
+    diabetes = data.groupby('Race / Ethnicity')['Data Value'].first()
+
+    # calculate proportional diabetes prevalence
+    insurance = insurance / 100
+
+    plt.figure(figsize=(10, 8))
+
+    # create stacked bars
+    bottom = 0
+
+    for coverage in insurance.columns:
+        proportion = diabetes * insurance[coverage]
+
+        plt.bar(
+            diabetes.index,
+            proportion,
+            bottom=bottom,
+            label=coverage)
+
+        bottom = bottom + proportion
+
+    plt.xlabel("Race / Ethnicity")
+    plt.ylabel("Diabetes Prevalence (per 100)")
+    plt.title("Diabetes Prevalence Vs. Insurance Coverage Type")
+
+    plt.xticks(rotation=45)
+    plt.legend(title="Insurance Coverage Type")
     plt.tight_layout()
 
     plt.savefig('q1_2.jpg')
