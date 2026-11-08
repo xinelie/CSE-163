@@ -58,19 +58,18 @@ def diabetes_data_q2(data: pd.DataFrame) -> pd.DataFrame:
     DOCUMENT!!!
     """
     # masks
-    #location = data['Location'] == 'Washington'
+    location = data['Location'] == 'Washington'
     condition = data['Short Indicator Text'].str.contains('Diabet')
     rate = data['Data Type'].str.contains('Rate')
     stratification1 = data['Stratification 1'] == 'Race-Ethnicity'
     stratification2 = data['Stratification 2'] == 'Race-Ethnicity'
-    states = ['Washington','California','Texas',
-              'New York','Florida','Illinois']
+    #states = ['Washington','California','Texas', 'New York','Florida','Illinois']
 
     # apply masks
     diabetes = data[condition
                     & rate
                     & (stratification1 | stratification2)]
-    diabetes = diabetes[diabetes['Location'].isin(states)]
+    #diabetes = diabetes[diabetes['Location'].isin(states)]
 
     # additional cleaning
     diabetes['Data Value'] = pd.to_numeric(diabetes['Data Value'])

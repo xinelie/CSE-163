@@ -25,17 +25,19 @@ def main():
 
     # filter data
     diabetes = clean.diabetes_data_q1(diabetes_data)
-    q2 = clean.diabetes_data_q2(diabetes_data)
     poverty = poverty_data[poverty_data['Location'] == 'Washington'].dropna()
     insurance = clean.insurance_data_q1(insurance_data)
+    q2 = clean.diabetes_data_q2(diabetes_data)
+    print(q2['Data Type Label'])
 
     # merge data frames
     q1 = merge.q1(diabetes, insurance)
 
     # visualizations
-    visualize.q1_fig1(q1) 
-    visualize.q1_fig2(q1)
+    #visualize.q1_fig1(q1) 
+    #visualize.q1_fig2(q1)
     visualize.q2_fig1(q2)
+    visualize.q2_fig2(q2)
 
 
 if __name__ == "__main__":

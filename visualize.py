@@ -88,6 +88,9 @@ def q2_fig1(data: pd.DataFrame):
     """
     DOCUMENT!!!!
     """
+    states = ['Washington','California','Texas', 'New York','Florida','Illinois']
+    data = data[data['Location'].isin(states)]
+
     fig = px.bar(data,
                  x='Stratification Group 1',
                  y='Data Value',
@@ -97,6 +100,29 @@ def q2_fig1(data: pd.DataFrame):
                  labels={'Race / Ethnicity': 'Race / Ethnicity',
                          'Data Value': 'Diabetes Prevalence (per 100 people)',
                          'Year': 'Year'})
+
+    fig.update_layout(width=900,
+                      height=600,
+                      template='plotly_white',
+                      xaxis_title='Race / Ethnicity')
+
+    fig.write_html("q2_1.html")
+    fig.show()
+
+def q2_fig2(data: pd.DataFrame):
+    """
+    Document!!!
+    """
+    # i want to make scatter plot with all the races and states
+    fig = px.scatter(data,
+                     x='Stratification Group 1',
+                     y='Data Value',
+                     color='Race / Ethnicity',
+                     symbol='Location',
+                     title='Diabetes Prevalence Vs. Race/Ethnicity Based on State',
+                     labels={'Race / Ethnicity': 'Race / Ethnicity',
+                             'Data Value': 'Diabetes Prevalence (per 100 people)',
+                             'Year': 'Year'})
 
     fig.update_layout(width=900,
                       height=600,
