@@ -118,6 +118,7 @@ def q2_fig2(data: pd.DataFrame):
                      x='Location',
                      y='Data Value',
                      color='Stratification Group 1',
+                     symbol='Stratification Group 1',
                      title='Diabetes Prevalence Vs. Race/Ethnicity Based on State',
                      labels={'Race / Ethnicity': 'Race / Ethnicity',
                              'Data Value': 'Diabetes Prevalence (per 100 people)',

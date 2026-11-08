@@ -28,7 +28,6 @@ def main():
     poverty = poverty_data[poverty_data['Location'] == 'Washington'].dropna()
     insurance = clean.insurance_data_q1(insurance_data)
     q2 = clean.diabetes_data_q2(diabetes_data)
-    print(q2['Data Type Label'])
 
     # merge data frames
     q1 = merge.q1(diabetes, insurance)
