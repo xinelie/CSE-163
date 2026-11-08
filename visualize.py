@@ -33,7 +33,7 @@ def q1_fig1(data: pd.DataFrame):
     insured = diabetes * (insured / 100)
     uninsured = diabetes * (uninsured / 100)
 
-    # create dataframe to cleanly plot
+    # create dataframe to have one insured and uninsured value per race category
     proportions = pd.DataFrame({'Race / Ethnicity': diabetes.index,
                                 'Insured': insured.values,
                                 'Uninsured': uninsured.values})
@@ -51,10 +51,13 @@ def q1_fig1(data: pd.DataFrame):
 
 
 def q1_fig2(data: pd.DataFrame):
+    """
+    DOCUMENT!!!
+    """
     # group insurance data by race and coverage type
     insurance = data.groupby(['Race / Ethnicity', 'Coverage Type'])['Data'].first()
 
-    # remove insured and uninsured
+    # remove insured and uninsured categories to only consider types of insurance
     insurance = insurance.drop(labels=['Insured', 'Uninsured'],
                                level='Coverage Type')
 
@@ -65,6 +68,7 @@ def q1_fig2(data: pd.DataFrame):
     proportions = insurance / 100
     proportions = proportions * diabetes / 2
 
+    # reset index to plot without multi index
     proportions = proportions.reset_index(name='Diabetes Prevalence')
 
     fig = px.bar(
