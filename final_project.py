@@ -111,17 +111,17 @@ def visualize_q1_fig2(data: pd.DataFrame):
     """
     DOCUMENT!!!
     """
-    # Separate insured and uninsured data
+    # separate insured and uninsured data
     insurance = data.pivot_table(
         index='Race / Ethnicity',
         columns='Coverage Type',
         values='Data',
         aggfunc='first')
 
-    # Get diabetes prevalence for each race
+    # get diabetes prevalence for each race
     diabetes = data.groupby('Race / Ethnicity')['Data Value'].first()
 
-    # Calculate the proportional diabetes prevalence
+    # calculate the proportional diabetes prevalence
     insured = diabetes * (insurance['Insured'] / 100)
     uninsured = diabetes * (insurance['Uninsured'] / 100)
 
