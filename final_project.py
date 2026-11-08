@@ -108,6 +108,9 @@ def visualize_q1_fig1(data: pd.DataFrame):
 
 
 def visualize_q1_fig2(data: pd.DataFrame):
+    """
+    DOCUMENT!!!
+    """
     # Separate insured and uninsured data
     insurance = data.pivot_table(
         index='Race / Ethnicity',
