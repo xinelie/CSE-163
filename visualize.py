@@ -19,81 +19,63 @@ def q1_fig1(data: pd.DataFrame):
     """
     DOCUMENT!!!
     """
-    # separate insured and uninsured data
-    insurance = data.pivot_table(
-        index='Race / Ethnicity',
-        columns='Coverage Type',
-        values='Data',
-        aggfunc='first')
+    # group insurance data by race and coverage type
+    insurance = data.groupby(['Race / Ethnicity', 'Coverage Type'])['Data'].first()
 
     # get diabetes prevalence for each race
     diabetes = data.groupby('Race / Ethnicity')['Data Value'].first()
 
-    # calculate the proportional diabetes prevalence
-    insured = diabetes * (insurance['Insured'] / 100)
-    uninsured = diabetes * (insurance['Uninsured'] / 100)
+    # get insured and uninsured values
+    insured = insurance.loc[(slice(None), 'Insured')]
+    uninsured = insurance.loc[(slice(None), 'Uninsured')]
 
-    plt.figure(figsize=(10, 7))
+    # calculate proportional diabetes prevalence
+    insured = diabetes * (insured / 100)
+    uninsured = diabetes * (uninsured / 100)
 
-    plt.bar(diabetes.index, insured, label="Insured")
-    plt.bar(diabetes.index, uninsured, bottom=insured, label="Uninsured")
+    # create dataframe to cleanly plot
+    proportions = pd.DataFrame({'Race / Ethnicity': diabetes.index,
+                                'Insured': insured.values,
+                                'Uninsured': uninsured.values})
 
-    plt.xlabel("Race / Ethnicity")
-    plt.ylabel("Diabetes Prevalence (per 100)")
-    plt.title("Diabetes Prevalence Vs. Insurance Status")
+    # create stacked bar chart
+    fig = px.bar(proportions,
+                 x='Race / Ethnicity',
+                 y=['Insured', 'Uninsured'],
+                 barmode='stack',
+                 title='Diabetes Prevalence vs. Insurance Status',
+                 labels={'value': 'Diabetes Prevalence (per 100)',
+                         'variable': 'Insurance Status'})
 
-    plt.xticks(rotation=45)
-    plt.legend(title="Insurance Status")
-    plt.tight_layout()
-
-    plt.savefig('q1_1.jpg')
+    fig.show()
 
 
 def q1_fig2(data: pd.DataFrame):
-    """
-    DOCUMENT!!!
-    """
-    # separate insurance coverage categories
-    insurance = data.pivot_table(
-        index='Race / Ethnicity',
-        columns='Coverage Type',
-        values='Data',
-        aggfunc='first')
+    # group insurance data by race and coverage type
+    insurance = data.groupby(['Race / Ethnicity', 'Coverage Type'])['Data'].first()
 
     # remove insured and uninsured
-    insurance = insurance.drop(columns=['Insured', 'Uninsured'])
+    insurance = insurance.drop(labels=['Insured', 'Uninsured'],
+                               level='Coverage Type')
 
     # get diabetes prevalence for each race
     diabetes = data.groupby('Race / Ethnicity')['Data Value'].first()
 
     # calculate proportional diabetes prevalence
-    insurance = insurance / 100
+    proportions = insurance / 100
+    proportions = proportions * diabetes / 2
 
-    plt.figure(figsize=(10, 8))
+    proportions = proportions.reset_index(name='Diabetes Prevalence')
 
-    # create stacked bars
-    bottom = 0
+    fig = px.bar(
+        proportions,
+        x='Race / Ethnicity',
+        y='Diabetes Prevalence',
+        color='Coverage Type',
+        barmode='stack',
+        title='Diabetes Prevalence vs. Insurance Coverage Type')
 
-    for coverage in insurance.columns:
-        proportion = diabetes * insurance[coverage] / 2
-
-        plt.bar(diabetes.index,
-            proportion,
-            bottom=bottom,
-            label=coverage)
-
-        bottom = bottom + proportion
-
-    plt.xlabel("Race / Ethnicity")
-    plt.ylabel("Diabetes Prevalence (per 100)")
-    plt.title("Diabetes Prevalence Vs. Insurance Coverage Type")
-
-    plt.xticks(rotation=45)
-    plt.legend(title="Insurance Coverage Type")
-    plt.tight_layout()
-
-    plt.savefig('q1_2.jpg')
-    plt.show()
+    fig.show()
 
 
 def q2_fig1(data: pd.DataFrame):
@@ -117,4 +99,3 @@ def q2_fig1(data: pd.DataFrame):
 
     fig.write_html("q2_1.html")
     fig.show()
-    
