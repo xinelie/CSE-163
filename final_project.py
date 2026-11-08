@@ -48,8 +48,12 @@ def clean_insurance_data(data: pd.DataFrame) -> pd.DataFrame:
     data_type = data['Data Type'] == 'Percent'
 
     # apply masks
-    insurance = data[coverage & data_type]
-    #insurance = data[data_type]
+    insurance = data[data_type]
+    # insurance = data[coverage & data_type]
+
+    # additional cleaning
+    insurance['Data'] = pd.to_numeric(insurance['Data'])
+    insurance['Data'] = insurance['Data'] * 100
 
     return insurance
 
@@ -63,6 +67,8 @@ def merge_q1(diabetes: pd.DataFrame, insurance: pd.DataFrame) -> pd.DataFrame:
         "Non-Hispanic Black": "African-American / Black",
         "Hispanic": "Hispanic / Latino"}
 
+    diabetes = diabetes.copy()
+
     diabetes['Stratification Group 1'] = (diabetes['Stratification Group 1'].replace(race_mapping))
 
     merged = pd.merge(diabetes,
@@ -73,35 +79,60 @@ def merge_q1(diabetes: pd.DataFrame, insurance: pd.DataFrame) -> pd.DataFrame:
     return merged
 
 
-def visualize_q1(data: pd.DataFrame): 
+def visualize_q1_fig1(data: pd.DataFrame): 
     """
     How is health insurance coverage by race associated with the
     burden of diabetes across Washington State?
     """
-    sns.barplot(
-        data=data,
-        x='Coverage Type',
-        y='Data Value',
+    uninsured = data[data['Coverage Type'] == 'Uninsured']
+
+    sns.relplot(
+        data=uninsured,
+        x='Data', # Insurance percentages
+        y='Data Value', # Diabetes Prevalence
         hue='Race / Ethnicity',
+        style='Race / Ethnicity', # we support color blind people
+        s=250,
     )
 
     plt.xlabel("Percentage of Uninsured (%)")
-    plt.ylabel("Diabetes Prevalence Rate")
-    plt.title("Health Insurance Coverage Type by Race in Washington")
+    plt.ylabel("Diabetes Prevalence Rate (Per 100)")
+    plt.title("Diabetes Prevalence Rate vs. Percentage of Uninsured by Race")
 
-    plt.ylim(6, 20)
+    # plt.xticks([])
+    plt.ylim(6, 15)
     plt.tight_layout()
 
+    plt.savefig('Uninsured_vs_Diabetes.jpg')
+
+
+def visualize_q1_fig2(data: pd.DataFrame):
+    insurance = data.pivot_table(
+        index="Race / Ethnicity",
+        columns="Coverage Type",
+        values="Data",
+        aggfunc="first")
+
+    plt.figure(figsize=(10, 7))
+
+    sns.heatmap(
+        insurance,
+        annot=True,
+        cmap="YlGnBu",
+        fmt=".1f")
+
+    plt.xlabel("Insurance Coverage Type")
+    plt.ylabel("Race / Ethnicity")
+    plt.xticks(rotation=45)
+
+    plt.title("Insurance Coverage by Race in Washington")
+    plt.subplots_adjust(bottom=0.25)
+
+    plt.savefig('Insurance_by_Race.jpg', bbox_inches='tight')
     plt.show()
 
+
 def main():
-    """
-    plan:
-    races: non-hispanic black, non-hispanic white, hispanic, and non-hispanic other races
-        the other data comes with additional races. 
-    data types: estimated cases (in thousands), rate (per 100)
-        we will need to work with these cases separately. we can probably pick just one. 
-    """
     # complete data processing here and call methods for visualization or analysis
     
     # read csv files
@@ -118,7 +149,8 @@ def main():
     q1 = merge_q1(diabetes, insurance)
 
     # visualizations
-    visualize_q1(q1)
+    visualize_q1_fig1(q1) 
+    visualize_q1_fig2(q1)
 
 if __name__ == "__main__":
     main()
