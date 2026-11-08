@@ -6,7 +6,6 @@ Final Project
 
 # import libraries
 import pandas as pd
-import geopandas as gpd
 import matplotlib.pyplot as plt
 import seaborn as sns
 
@@ -127,8 +126,11 @@ def visualize_q1_fig2(data: pd.DataFrame):
     # remove insured and uninsured
     insurance = insurance.drop(columns=['Insured', 'Uninsured'])
 
+    # normalize the remaining coverage percentages
+    insurance = insurance.div(insurance.sum(axis=1), axis=0)
+
     # get diabetes prevalence for each race
-    diabetes = data.groupby('Race / Ethnicity')['Data Value'].first()
+    diabetes = data.groupby('Race / Ethnicity')['Data Value'].first() * 100
 
     # calculate proportional diabetes prevalence
     insurance = insurance / 100
