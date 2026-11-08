@@ -117,7 +117,7 @@ def q2_fig2(data: pd.DataFrame):
     fig = px.scatter(data,
                      x='Stratification Group 1',
                      y='Data Value',
-                     color='Race / Ethnicity',
+                     color='Stratification Group 1',
                      symbol='Location',
                      title='Diabetes Prevalence Vs. Race/Ethnicity Based on State',
                      labels={'Race / Ethnicity': 'Race / Ethnicity',
