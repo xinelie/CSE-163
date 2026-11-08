@@ -86,7 +86,7 @@ def visualize_q1(data: pd.DataFrame):
     )
 
     plt.xlabel("Percentage of Uninsured (%)")
-    plt.ylabel("Percentage of Population (%)")
+    plt.ylabel("Diabetes Prevalence Rate")
     plt.title("Health Insurance Coverage Type by Race in Washington")
 
     plt.ylim(6, 20)
