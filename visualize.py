@@ -115,10 +115,9 @@ def q2_fig2(data: pd.DataFrame):
     """
     # i want to make scatter plot with all the races and states
     fig = px.scatter(data,
-                     x='Stratification Group 1',
+                     x='Location',
                      y='Data Value',
                      color='Stratification Group 1',
-                     symbol='Location',
                      title='Diabetes Prevalence Vs. Race/Ethnicity Based on State',
                      labels={'Race / Ethnicity': 'Race / Ethnicity',
                              'Data Value': 'Diabetes Prevalence (per 100 people)',
