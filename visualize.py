@@ -12,8 +12,10 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import plotly.express as px
 
+sns.set_theme()
+
 # methods
-def visualize_q1_fig1(data: pd.DataFrame):
+def q1_fig1(data: pd.DataFrame):
     """
     DOCUMENT!!!
     """
@@ -47,7 +49,7 @@ def visualize_q1_fig1(data: pd.DataFrame):
     plt.savefig('q1_1.jpg')
 
 
-def visualize_q1_fig2(data: pd.DataFrame):
+def q1_fig2(data: pd.DataFrame):
     """
     DOCUMENT!!!
     """
@@ -94,33 +96,25 @@ def visualize_q1_fig2(data: pd.DataFrame):
     plt.show()
 
 
-def visualize_q2_fig1(data: pd.DataFrame):
+def q2_fig1(data: pd.DataFrame):
     """
-    DOCUMENT!!!
+    DOCUMENT!!!!
     """
-    fig = px.scatter(data,
-                     x='Poverty Rate',
-                     y='Data',
-                     color='Race / Ethnicity',
-                     symbol='Race / Ethnicity',
-                     hover_name='Race / Ethnicity',
-                     hover_data={'Poverty Rate': ':.2f',
-                                 'Data': ':.2f'},
-                     title='Poverty Rate vs. Uninsured Rate by Race in Washington',
-                     labels={'Poverty Rate': 'Percentage Living in Poverty (%)',
-                             'Data': 'Percentage Uninsured (%)',
-                             'Race / Ethnicity': 'Race / Ethnicity'})
+    fig = px.bar(data,
+                 x='Stratification Group 1',
+                 y='Data Value',
+                 color='Location',
+                 barmode='group',
+                 title='Diabetes Prevalence Vs. Race/Ethnicity Based on State',
+                 labels={'Race / Ethnicity': 'Race / Ethnicity',
+                         'Data Value': 'Diabetes Prevalence (per 100 people)',
+                         'Year': 'Year'})
 
-    fig.update_traces(marker={'size': 14})
+    fig.update_layout(width=900,
+                      height=600,
+                      template='plotly_white',
+                      xaxis_title='Race / Ethnicity')
 
-    fig.update_layout(
-        width=900,
-        height=600,
-        legend_title_text='Race / Ethnicity',
-        template='plotly_white')
-
+    fig.write_html("q2_1.html")
     fig.show()
-
-    plt.tight_layout()
-    plt.savefig('q2_1.jpg')
-    plt.show()
+    

@@ -10,7 +10,7 @@ DOCUMENT!!!
 import pandas as pd
 
 # methods
-def merge_q1(diabetes: pd.DataFrame, insurance: pd.DataFrame) -> pd.DataFrame:
+def q1(diabetes: pd.DataFrame, insurance: pd.DataFrame) -> pd.DataFrame:
     """
     DOCUMENT!!!
     """
@@ -27,29 +27,5 @@ def merge_q1(diabetes: pd.DataFrame, insurance: pd.DataFrame) -> pd.DataFrame:
                       insurance,
                       left_on=["Stratification Group 1"],
                       right_on=["Race / Ethnicity"])
-
-    return merged
-
-def merge_q2(poverty: pd.DataFrame, insurance: pd.DataFrame) -> pd.DataFrame:
-    """
-    DOCUMENT!!!
-    """
-    race_mapping = {
-        'White': 'White',
-        'Black': 'African-American / Black',
-        'Hispanic': 'Hispanic / Latino',
-        'American Indian or Alaska Native':
-            'American Indian / Alaska Native',
-        'Multiple Races': 'Other / Multiple Races'
-    }
-
-    poverty = poverty.copy()
-
-    poverty['Race / Ethnicity'] = (poverty['Race / Ethnicity'].replace(race_mapping))
-
-    merged = pd.merge(poverty,
-        insurance,
-        on=['Location', 'Race / Ethnicity'],
-        how='inner')
 
     return merged

@@ -10,7 +10,7 @@ DOCUMENT!!!
 import pandas as pd
 
 # methods
-def clean_diabetes_data_q1(data: pd.DataFrame) -> pd.DataFrame:
+def diabetes_data_q1(data: pd.DataFrame) -> pd.DataFrame:
     """
     DOCUMENT!!!
     """
@@ -36,7 +36,7 @@ def clean_diabetes_data_q1(data: pd.DataFrame) -> pd.DataFrame:
     return diabetes
 
 
-def clean_insurance_data_q1(data: pd.DataFrame) -> pd.DataFrame:
+def insurance_data_q1(data: pd.DataFrame) -> pd.DataFrame:
     """
     DOCUMENT!!!
     """
@@ -52,3 +52,28 @@ def clean_insurance_data_q1(data: pd.DataFrame) -> pd.DataFrame:
     insurance = insurance.dropna()
 
     return insurance
+
+def diabetes_data_q2(data: pd.DataFrame) -> pd.DataFrame:
+    """
+    DOCUMENT!!!
+    """
+    # masks
+    #location = data['Location'] == 'Washington'
+    condition = data['Short Indicator Text'].str.contains('Diabet')
+    rate = data['Data Type'].str.contains('Rate')
+    stratification1 = data['Stratification 1'] == 'Race-Ethnicity'
+    stratification2 = data['Stratification 2'] == 'Race-Ethnicity'
+    states = ['Washington','California','Texas',
+              'New York','Florida','Illinois']
+
+    # apply masks
+    diabetes = data[condition
+                    & rate
+                    & (stratification1 | stratification2)]
+    diabetes = diabetes[diabetes['Location'].isin(states)]
+
+    # additional cleaning
+    diabetes['Data Value'] = pd.to_numeric(diabetes['Data Value'])
+    diabetes = diabetes.dropna()
+
+    return diabetes

@@ -24,17 +24,18 @@ def main():
     insurance_data = pd.read_csv("insurance.csv", skiprows=6)
 
     # filter data
-    diabetes = clean.clean_diabetes_data_q1(diabetes_data)
+    diabetes = clean.diabetes_data_q1(diabetes_data)
+    q2 = clean.diabetes_data_q2(diabetes_data)
     poverty = poverty_data[poverty_data['Location'] == 'Washington'].dropna()
-    insurance = clean.clean_insurance_data_q1(insurance_data)
+    insurance = clean.insurance_data_q1(insurance_data)
 
     # merge data frames
-    q1 = merge.merge_q1(diabetes, insurance)
-    # q2 = merge.merge_q2(poverty, insurance)
+    q1 = merge.q1(diabetes, insurance)
 
     # visualizations
-    visualize.visualize_q1_fig1(q1) 
-    visualize.visualize_q1_fig2(q1)
+    #visualize.q1_fig1(q1) 
+    #visualize.q1_fig2(q1)
+    visualize.q2_fig1(q2)
 
 
 if __name__ == "__main__":
