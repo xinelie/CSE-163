@@ -56,7 +56,8 @@ def q1_fig2(data: pd.DataFrame):
     DOCUMENT!!!
     """
     # group insurance data by race and coverage type
-    insurance = data.groupby(['Race / Ethnicity', 'Coverage Type'])['Data'].first()
+    insurance = data.copy()
+    insurance = insurance.groupby(['Race / Ethnicity', 'Coverage Type'])['Data'].first()
 
     # remove insured and uninsured categories to only consider types of insurance
     insurance = insurance.drop(labels=['Insured', 'Uninsured'],
@@ -113,7 +114,6 @@ def q2_fig2(data: pd.DataFrame):
     """
     Document!!!
     """
-    # i want to make scatter plot with all the races and states
     fig = px.scatter(data,
                      x='Location',
                      y='Data Value',
@@ -127,7 +127,7 @@ def q2_fig2(data: pd.DataFrame):
     fig.update_layout(width=900,
                       height=600,
                       template='plotly_white',
-                      xaxis_title='Race / Ethnicity')
+                      xaxis_title='State')
 
     fig.write_html("q2_1.html")
     fig.show()
