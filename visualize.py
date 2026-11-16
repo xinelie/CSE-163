@@ -17,7 +17,9 @@ sns.set_theme()
 # methods
 def q1_fig1(data: pd.DataFrame):
     """
-    DOCUMENT!!!
+    Plots a stacked bar chart of proportional diabetes prevalence by insured and
+uninsured status across racial/ethnic groups in Washington State.
+
     """
     # group insurance data by race and coverage type
     insurance = data.groupby(['Race / Ethnicity', 'Coverage Type'])['Data'].first()
@@ -53,7 +55,8 @@ def q1_fig1(data: pd.DataFrame):
 
 def q1_fig2(data: pd.DataFrame):
     """
-    DOCUMENT!!!
+    Plots a stacked bar chart breaking down proportional diabetes prevalence by
+    health insurance coverage types across racial/ethnic groups in Washington.
     """
     # group insurance data by race and coverage type
     insurance = data.copy()
@@ -87,7 +90,8 @@ def q1_fig2(data: pd.DataFrame):
 
 def q2_fig1(data: pd.DataFrame):
     """
-    DOCUMENT!!!!
+    Plots a grouped bar chart comparing 2021 diabetes prevalence across racial/ethnic
+    groups in six selected U.S. states.
     """
     states = ['Washington','California','Texas', 'New York','Florida','Illinois']
     data = data[data['Location'].isin(states)]
@@ -112,7 +116,8 @@ def q2_fig1(data: pd.DataFrame):
 
 def q2_fig2(data: pd.DataFrame):
     """
-    Document!!!
+    Plots a scatter plot showing 2021 diabetes prevalence by race and ethnicity
+    across all available U.S. states.
     """
     fig = px.scatter(data,
                      x='Location',
