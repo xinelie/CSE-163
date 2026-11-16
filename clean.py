@@ -75,3 +75,22 @@ def diabetes_data_q2(data: pd.DataFrame) -> pd.DataFrame:
     diabetes = diabetes.dropna()
 
     return diabetes
+
+# megha
+def poverty_data_q3(data: pd.DataFrame) -> pd.DataFrame:
+    """
+    DOCUMENT!!!
+    """
+    # masks
+    location = data['Location'] == 'Washington'
+    poverty = data[location].drop(columns=['Location', 'Total'], errors='ignore')
+    # turning columns into rows
+    poverty = poverty.T.reset_index()
+    poverty.columns = ['Race/Ethnicity', 'Poverty Rate']
+    # additional Cleaning
+    poverty['Poverty Rate'] = pd.to_numeric(poverty['Poverty Rate'], errors='coerce')
+    poverty['Poverty Rate'] = poverty['Poverty Rate'] * 100 # converting to percentage
+
+    poverty = poverty.dropna() # ensuring no null values in the data frame
+
+    return poverty

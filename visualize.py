@@ -131,3 +131,71 @@ def q2_fig2(data: pd.DataFrame):
 
     fig.write_html("q2_1.html")
     fig.show()
+
+# q3
+def q3_fig1(data: pd.DataFrame):
+    """
+    Creates a grouped bar chart comparing diabetes prevalence (per 100
+    people) and poverty rate (%) across racial and ethnic groups in Washington.
+    """
+    fig = px.bar(
+        data,
+        x='Race/Ethnicity',
+        y=['Data Value', 'Poverty Rate'],
+        barmode='group',
+        title='Diabetes Prevalence vs. Poverty Rate by Race/Ethnicity in Washington (2021)',
+        labels={
+            'Race/Ethnicity': 'Race / Ethnicity',
+            'value': 'Percentage / Rate (per 100 people)',
+            'variable': 'Metric'
+        }
+    )
+
+    # legend
+    newnames = {
+        'Data Value': 'Diabetes Prevalence (per 100)',
+        'Poverty Rate': 'Poverty Rate (%)'
+    }
+    fig.for_each_trace(lambda t: t.update(name=newnames.get(t.name, t.name)))
+
+    fig.update_layout(
+        width=900,
+        height=600,
+        template='plotly_white',
+        xaxis_title='Race / Ethnicity',
+        yaxis_title='Rate / Percentage'
+    )
+
+    fig.write_html("q3_1.html")
+    fig.show()
+
+
+def q3_fig2(data: pd.DataFrame):
+    """
+    Creates and saves a scatter plot comparing poverty rate (%) against diabetes
+    prevalence (per 100 people) across racial and ethnic groups in Washington.
+    """
+    fig = px.scatter(
+        data,
+        x='Poverty Rate',
+        y='Data Value',
+        color='Race/Ethnicity',
+        symbol='Race/Ethnicity',
+        text='Race/Ethnicity',
+        title='Association Between Poverty Rate and Diabetes Prevalence in Washington (2021)',
+        labels={
+            'Poverty Rate': 'Poverty Rate (%)',
+            'Data Value': 'Diabetes Prevalence (per 100 people)',
+            'Race/Ethnicity': 'Race / Ethnicity'
+        }
+    )
+
+    fig.update_traces(textposition='top center', marker=dict(size=12))
+    fig.update_layout(
+        width=900,
+        height=600,
+        template='plotly_white'
+    )
+
+    fig.write_html("q3_2.html")
+    fig.show()
