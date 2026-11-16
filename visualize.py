@@ -44,7 +44,7 @@ def q1_fig1(data: pd.DataFrame):
                  y=['Insured', 'Uninsured'],
                  barmode='stack',
                  title='Diabetes Prevalence vs. Insurance Status',
-                 labels={'value': 'Diabetes Prevalence (per 100)',
+                 labels={'value': 'Diabetes Prevalence (per 100 people)',
                          'variable': 'Insurance Status'})
 
     fig.write_html("q1_1.html")
@@ -73,13 +73,16 @@ def q1_fig2(data: pd.DataFrame):
     # reset index to plot without multi index
     proportions = proportions.reset_index(name='Diabetes Prevalence')
 
+    # create stacked bar chart
     fig = px.bar(
         proportions,
         x='Race / Ethnicity',
         y='Diabetes Prevalence',
         color='Coverage Type',
         barmode='stack',
-        title='Diabetes Prevalence vs. Insurance Coverage Type')
+        title='Diabetes Prevalence vs. Insurance Coverage Type',
+        labels={'value': 'Diabetes Prevalence (per 100 people)',
+                'variable': 'Coverage Type'})
     
     fig.write_html("q1_2.html")
     fig.show()
@@ -89,9 +92,11 @@ def q2_fig1(data: pd.DataFrame):
     """
     DOCUMENT!!!!
     """
+    # filter states
     states = ['Washington','California','Texas', 'New York','Florida','Illinois']
     data = data[data['Location'].isin(states)]
 
+    # create grouped bar chart
     fig = px.bar(data,
                  x='Stratification Group 1',
                  y='Data Value',
@@ -114,6 +119,7 @@ def q2_fig2(data: pd.DataFrame):
     """
     Document!!!
     """
+    # create scatter plot
     fig = px.scatter(data,
                      x='Location',
                      y='Data Value',
