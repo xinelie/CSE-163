@@ -3,7 +3,7 @@ Megha Nilesh Varma, Sandy Kwong
 CSE 163 AB
 Final Project
 
-DOCUMENT!!!
+Cleaning and filtering data for visualizations
 """
 
 # import libraries
@@ -12,7 +12,7 @@ import pandas as pd
 # methods
 def diabetes_data_q1(data: pd.DataFrame) -> pd.DataFrame:
     """
-    DOCUMENT!!!
+    
     """
     # masks
     location = data['Location'] == 'Washington'
@@ -76,8 +76,8 @@ def diabetes_data_q2(data: pd.DataFrame) -> pd.DataFrame:
 
     return diabetes
 
-# megha
-def poverty_data_q3(data: pd.DataFrame) -> pd.DataFrame:
+
+def poverty_data_q3_just_Wa(data: pd.DataFrame) -> pd.DataFrame:
     """
     DOCUMENT!!!
     """
@@ -94,3 +94,21 @@ def poverty_data_q3(data: pd.DataFrame) -> pd.DataFrame:
     poverty = poverty.dropna() # ensuring no null values in the data frame
 
     return poverty
+
+def poverty_data_q3_multistate(data: pd.DataFrame) -> pd.DataFrame:
+    """
+    DOCUMENT!!!
+    """
+    poverty_all = data[data['Location'] != 'United States'].copy()
+    poverty_all = poverty_all.drop(columns=['Total'], errors='ignore')
+
+    # turning columns into rows
+    poverty_all = poverty_all.set_index('Location').stack().reset_index()
+    poverty_all.columns = ['Location', 'Race/Ethnicity', 'Poverty Rate']
+    # additional Cleaning
+    poverty_all['Poverty Rate'] = pd.to_numeric(poverty_all['Poverty Rate'], errors='coerce')
+    poverty_all['Poverty Rate'] = poverty_all['Poverty Rate'] * 100 # converting to percentage
+
+    poverty_all = poverty_all.dropna() # ensuring no null values in the data frame
+
+    return poverty_all

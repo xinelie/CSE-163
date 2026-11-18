@@ -122,7 +122,7 @@ def q2_fig1(data: pd.DataFrame):
 def q2_fig2(data: pd.DataFrame):
     """
     Plots a scatter plot showing 2021 diabetes prevalence by race and ethnicity
-    across all available U.S. states.
+    across all U.S. states in the dataset.
     """
     # create scatter plot
     fig = px.scatter(data,

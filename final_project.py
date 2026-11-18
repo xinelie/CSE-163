@@ -32,6 +32,7 @@ def main():
     # merge data frames
     q1 = merge.q1(diabetes, insurance)
     q3 = merge.q3(diabetes, poverty)
+    q3_multi = merge.q3(q2, poverty_all)
 
     # visualizations
     visualize.q1_fig1(q1) 
@@ -39,7 +40,7 @@ def main():
     visualize.q2_fig1(q2)
     visualize.q2_fig2(q2)
     visualize.q3_fig1(q3)
-    visualize.q3_fig2(q3)
+    visualize.q3_fig2(q3_multi)
 
 
 if __name__ == "__main__":

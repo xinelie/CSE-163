@@ -35,7 +35,8 @@ def q1(diabetes: pd.DataFrame, insurance: pd.DataFrame) -> pd.DataFrame:
 # q3 poverty and diabetes prevalence by race
 def q3(diabetes: pd.DataFrame, poverty: pd.DataFrame) -> pd.DataFrame:
     """
-    Standardizes racial/ethnic group labels in the clen diabetes and poverty dataset and returns an inner merge.
+    Standardizes racial/ethnic group labels in the cleaned diabetes dataset and
+    merges with poverty data on both state ('Location') and race/ethnicity.
     """
     race_mapping = {
         "Non-Hispanic White": "White",
@@ -51,8 +52,8 @@ def q3(diabetes: pd.DataFrame, poverty: pd.DataFrame) -> pd.DataFrame:
     merged = pd.merge(
         diabetes,
         poverty,
-        left_on=["Stratification Group 1"],
-        right_on=["Race/Ethnicity"]
+        left_on=["Location", "Stratification Group 1"],
+        right_on=["Location", "Race/Ethnicity"]
     )
 
     return merged
