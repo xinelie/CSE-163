@@ -18,8 +18,7 @@ sns.set_theme()
 def q1_fig1(data: pd.DataFrame):
     """
     Plots a stacked bar chart of proportional diabetes prevalence by insured and
-uninsured status across racial/ethnic groups in Washington State.
-
+    uninsured status across racial/ethnic groups in Washington State.
     """
     # group insurance data by race and coverage type
     insurance = data.groupby(['Race / Ethnicity', 'Coverage Type'])['Data'].first()
