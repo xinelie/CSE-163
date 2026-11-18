@@ -1,0 +1,17 @@
+﻿Indicator,Health Insurance Coverage Type by Race / Ethnicity
+Source,"SHADAC analysis of the American Community Survey (ACS) Public Use Microdata Sample (PUMS) files.<br />
+<br />
+Suggested Citation:<br />
+SHADAC analysis of [DATA SOURCE], State Health Compare, SHADAC, University of Minnesota, statehealthcompare.shadac.org, Accessed [DATE]."
+Notes,"Respondents are asked about their health insurance coverage at the time of the interview and may select multiple types of coverage. SHADAC's primary source of coverage hierarchy is applied to assign one coverage type to each respondent. If multiple sources of coverage were reported for an observation, primary source of coverage was assigned in the following order: 1) Medicare (for people age 19 or older); 2) employer-sponsored insurance (ESI), TRICARE or other military health care, or VA; 3) Medicaid; 4) Individual coverage; and 5) Medicare (for people age 18 or under). Private coverage includes employer (plus TRICARE and VA) and individual coverage. Public coverage includes Medicaid (plus CHIP and state-specific public programs) and Medicare. The margin of error (MOE) represents the uncertainty of an estimate due to sampling variability; the calculated MOE is 95%. N/A indicates that data were not available or suppressed because the number of sample cases was too small. Data for 2020 were <a href="https://www.shadac.org/news/changes-to-2020-acs-data-release-US-Census" target="_blank">not officially released by the U.S. Census Bureau</a> due to pandemic-related disruptions to data collection and resulting problems with data quality. Because of<a href="https://www.census.gov/newsroom/blogs/random-samplings/2021/08/improvements-to-2020-census-race-hispanic-origin-question-designs.html" target="_blank"> changes made in 2020 to how the ACS measures race and ethnicity</a>, caution should be used when comparing data by race and ethnicity from 2021 and later to data from 2019 and earlier."
+Description,"Rates of uninsurance (or health insurance coverage type) by race and ethnicity for the non-institutionalized population. The race and ethnicity categories are defined as Hispanic or Latino (any race); White Alone, not Hispanic or Latino; African American or Black Alone, not Hispanic or Latino; Asian Alone, not Hispanic or Latino; Native Hawaiian and Other Pacific Islander Alone, not Hispanic or Latino; American Indian or Alaska Native, not Hispanic or Latino; and Other/Multiple Races, not Hispanic or Latino."
+53,Washington,Employer,African-American / Black,2021,Number,146633.0,
+53,Washington,Employer,African-American / Black,2021,Percent,0.50038,0.030435
+53,Washington,Individual,African-American / Black,2021,Percent,0.0345,0.010169
+53,Washington,Individual,African-American / Black,2021,Number,10109.0,
+53,Washington,Insured,African-American / Black,2021,Number,269660.0,
+53,Washington,Insured,African-American / Black,2021,Percent,0.9202,0.017599
+53,Washington,Medicaid/CHIP,African-American / Black,2021,Percent,0.27232,0.028823
+53,Washington,Medicaid/CHIP,African-American / Black,2021,Number,79801.0,
+53,Washington,Medicare,African-American / Black,2021,Number,33117.0,
+53,Washington,Medicare,African-American / Black,2021,Percent,0.11301,0.013647
