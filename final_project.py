@@ -3,7 +3,9 @@ Megha Nilesh Varma, Sandy Kwong
 CSE 163 AB
 Final Project
 
-DOCUMENT!!!
+Reads the raw diabetes, poverty, and insurance CSV datasets, executes the
+data cleaning and merging functions for our Research Questions 1, 2, and 3,
+and generates all interactive Plotly HTML visualizations.
 """
 
 # import libraries
@@ -25,7 +27,8 @@ def main():
 
     # filter data
     diabetes = clean.diabetes_data_q1(diabetes_data)
-    poverty = clean.poverty_data_q3(poverty_data)
+    poverty = clean.poverty_data_q3_just_Wa(poverty_data)
+    poverty_all = clean.poverty_data_q3_multistate(poverty_data)
     insurance = clean.insurance_data_q1(insurance_data)
     q2 = clean.diabetes_data_q2(diabetes_data)
 

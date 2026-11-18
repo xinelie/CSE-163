@@ -12,7 +12,8 @@ import pandas as pd
 # methods
 def q1(diabetes: pd.DataFrame, insurance: pd.DataFrame) -> pd.DataFrame:
     """
-    DOCUMENT!!!
+    standardizes racial/ethnic group labels between the cleaned diabetes dataset and
+    merges with insurance data on race/ethnicity.
     """
     # change race strings in diabetes data
     race_mapping = {
@@ -35,7 +36,7 @@ def q1(diabetes: pd.DataFrame, insurance: pd.DataFrame) -> pd.DataFrame:
 # q3 poverty and diabetes prevalence by race
 def q3(diabetes: pd.DataFrame, poverty: pd.DataFrame) -> pd.DataFrame:
     """
-    Standardizes racial/ethnic group labels in the cleaned diabetes dataset and
+    Standardizes racial/ethnic group labels between the cleaned diabetes dataset and
     merges with poverty data on both state ('Location') and race/ethnicity.
     """
     race_mapping = {

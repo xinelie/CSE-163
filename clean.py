@@ -12,7 +12,7 @@ import pandas as pd
 # methods
 def diabetes_data_q1(data: pd.DataFrame) -> pd.DataFrame:
     """
-    
+    Applies mask to focus only on washinton state diabetes data and filters for relevant columns. Returns a cleaned dataframe.
     """
     # masks
     location = data['Location'] == 'Washington'
@@ -38,7 +38,7 @@ def diabetes_data_q1(data: pd.DataFrame) -> pd.DataFrame:
 
 def insurance_data_q1(data: pd.DataFrame) -> pd.DataFrame:
     """
-    DOCUMENT!!!
+    Applies mask to focus only on insurance data and filters for relevant columns. Returns a cleaned dataframe.
     """
     # masks
     data_type = data['Data Type'] == 'Percent'
@@ -55,7 +55,7 @@ def insurance_data_q1(data: pd.DataFrame) -> pd.DataFrame:
 
 def diabetes_data_q2(data: pd.DataFrame) -> pd.DataFrame:
     """
-    DOCUMENT!!!
+    Applies mask to focus on diabetes data in all states and filters for relevant columns. Returns a cleaned dataframe.
     """
     # masks
     condition = data['Short Indicator Text'].str.contains('Diabet')
@@ -79,14 +79,14 @@ def diabetes_data_q2(data: pd.DataFrame) -> pd.DataFrame:
 
 def poverty_data_q3_just_Wa(data: pd.DataFrame) -> pd.DataFrame:
     """
-    DOCUMENT!!!
+    Applies mask to focus only on Washington state poverty data and filters for relevant columns. Returns a cleaned dataframe.
     """
     # masks
-    location = data['Location'] == 'Washington'
-    poverty = data[location].drop(columns=['Location', 'Total'], errors='ignore')
+    poverty = data[data['Location'] == 'Washington'].copy()
+    poverty = poverty.drop(columns=['Total'], errors='ignore')
     # turning columns into rows
-    poverty = poverty.T.reset_index()
-    poverty.columns = ['Race/Ethnicity', 'Poverty Rate']
+    poverty = poverty.set_index('Location').stack().reset_index()
+    poverty.columns = ['Location', 'Race/Ethnicity', 'Poverty Rate']
     # additional Cleaning
     poverty['Poverty Rate'] = pd.to_numeric(poverty['Poverty Rate'], errors='coerce')
     poverty['Poverty Rate'] = poverty['Poverty Rate'] * 100 # converting to percentage
@@ -97,7 +97,7 @@ def poverty_data_q3_just_Wa(data: pd.DataFrame) -> pd.DataFrame:
 
 def poverty_data_q3_multistate(data: pd.DataFrame) -> pd.DataFrame:
     """
-    DOCUMENT!!!
+    Focuses on all-state poverty data and filters for relevant columns. Returns a cleaned dataframe.
     """
     poverty_all = data[data['Location'] != 'United States'].copy()
     poverty_all = poverty_all.drop(columns=['Total'], errors='ignore')

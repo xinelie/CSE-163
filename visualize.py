@@ -154,7 +154,7 @@ def q3_fig1(data: pd.DataFrame):
         x='Race/Ethnicity',
         y=['Data Value', 'Poverty Rate'],
         barmode='group',
-        title='Diabetes Prevalence vs. Poverty Rate by Race/Ethnicity in Washington (2021)',
+        title='Diabetes Prevalence vs. Poverty Rate by Race/Ethnicity in Washington',
         labels={
             'Race/Ethnicity': 'Race / Ethnicity',
             'value': 'Percentage / Rate (per 100 people)',
@@ -183,8 +183,8 @@ def q3_fig1(data: pd.DataFrame):
 
 def q3_fig2(data: pd.DataFrame):
     """
-    Creates and saves a scatter plot comparing poverty rate (%) against diabetes
-    prevalence (per 100 people) across racial and ethnic groups in Washington.
+    Creates a scatter plot comparing poverty rate (%) against diabetes
+    prevalence (per 100 people) across racial and ethnic groups in all U.S. states.
     """
     fig = px.scatter(
         data,
@@ -192,8 +192,8 @@ def q3_fig2(data: pd.DataFrame):
         y='Data Value',
         color='Race/Ethnicity',
         symbol='Race/Ethnicity',
-        text='Race/Ethnicity',
-        title='Association Between Poverty Rate and Diabetes Prevalence in Washington (2021)',
+        hover_name='Location',
+        title='Association Between Poverty Rate and Diabetes Prevalence in All U.S. States',
         labels={
             'Poverty Rate': 'Poverty Rate (%)',
             'Data Value': 'Diabetes Prevalence (per 100 people)',
@@ -201,7 +201,6 @@ def q3_fig2(data: pd.DataFrame):
         }
     )
 
-    fig.update_traces(textposition='top center', marker=dict(size=12))
     fig.update_layout(
         width=900,
         height=600,
