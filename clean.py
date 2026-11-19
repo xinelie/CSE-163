@@ -4,7 +4,7 @@ CSE 163 AB
 Final Project
 
 Implements multiple methods to clean and filter diabetes, insurance,
-and poverty dataframes for visualization. 
+and poverty dataframes for visualization.
 """
 
 # import libraries
