@@ -8,20 +8,18 @@ DOCUMENT!!!
 
 # import libraries
 import pandas as pd
-import matplotlib.pyplot as plt
-import seaborn as sns
 import plotly.express as px
 
-sns.set_theme()
 
 # methods
 def q1_fig1(data: pd.DataFrame):
     """
-    Plots a stacked bar chart of proportional diabetes prevalence by insured and
-    uninsured status across racial/ethnic groups in Washington State.
+    Plots a stacked bar chart of proportional diabetes prevalence by insured
+    and uninsured status across racial/ethnic groups in Washington State.
     """
     # group insurance data by race and coverage type
-    insurance = data.groupby(['Race / Ethnicity', 'Coverage Type'])['Data'].first()
+    insurance = data.groupby(['Race / Ethnicity',
+                              'Coverage Type'])['Data'].first()
 
     # get diabetes prevalence for each race
     diabetes = data.groupby('Race / Ethnicity')['Data Value'].first()
@@ -34,7 +32,8 @@ def q1_fig1(data: pd.DataFrame):
     insured = diabetes * (insured / 100)
     uninsured = diabetes * (uninsured / 100)
 
-    # create dataframe to have one insured and uninsured value per race category
+    # create dataframe to have one insured and uninsured value per
+    # race category
     proportions = pd.DataFrame({'Race / Ethnicity': diabetes.index,
                                 'Insured': insured.values,
                                 'Uninsured': uninsured.values})
@@ -59,9 +58,11 @@ def q1_fig2(data: pd.DataFrame):
     """
     # group insurance data by race and coverage type
     insurance = data.copy()
-    insurance = insurance.groupby(['Race / Ethnicity', 'Coverage Type'])['Data'].first()
+    insurance = insurance.groupby(['Race / Ethnicity',
+                                   'Coverage Type'])['Data'].first()
 
-    # remove insured and uninsured categories to only consider types of insurance
+    # remove insured and uninsured categories to only consider types
+    # of insurance
     insurance = insurance.drop(labels=['Insured', 'Uninsured'],
                                level='Coverage Type')
 
@@ -85,18 +86,20 @@ def q1_fig2(data: pd.DataFrame):
         title='Diabetes Prevalence vs. Insurance Coverage Type',
         labels={'value': 'Diabetes Prevalence (per 100 people)',
                 'variable': 'Coverage Type'})
-    
+
     fig.write_html("q1_2.html")
     fig.show()
 
 
 def q2_fig1(data: pd.DataFrame):
     """
-    Plots a grouped bar chart comparing 2021 diabetes prevalence across racial/ethnic
-    groups in six selected U.S. states.
+    Plots a grouped bar chart comparing 2021 diabetes prevalence across
+    racial/ethnic groups in six selected U.S. states.
     """
     # filter states
-    states = ['Washington','California','Texas', 'New York','Florida','Illinois']
+    states = ['Washington', 'California',
+              'Texas', 'New York', 'Florida',
+              'Illinois']
     data = data[data['Location'].isin(states)]
 
     # create grouped bar chart
@@ -118,20 +121,23 @@ def q2_fig1(data: pd.DataFrame):
     fig.write_html("q2_1.html")
     fig.show()
 
+
 def q2_fig2(data: pd.DataFrame):
     """
     Plots a scatter plot showing 2021 diabetes prevalence by race and ethnicity
     across all U.S. states in the dataset.
     """
     # create scatter plot
+    title = 'Diabetes Prevalence vs. Race/Ethnicity Based on State'
+    data_value = 'Diabetes Prevalence (per 100 people)'
     fig = px.scatter(data,
                      x='Location',
                      y='Data Value',
                      color='Stratification Group 1',
                      symbol='Stratification Group 1',
-                     title='Diabetes Prevalence Vs. Race/Ethnicity Based on State',
+                     title=title,
                      labels={'Race / Ethnicity': 'Race / Ethnicity',
-                             'Data Value': 'Diabetes Prevalence (per 100 people)',
+                             'Data Value': data_value,
                              'Year': 'Year'})
 
     fig.update_layout(width=900,
@@ -142,18 +148,21 @@ def q2_fig2(data: pd.DataFrame):
     fig.write_html("q2_1.html")
     fig.show()
 
-# q3
+
 def q3_fig1(data: pd.DataFrame):
     """
     Creates a grouped bar chart comparing diabetes prevalence (per 100
     people) and poverty rate (%) across racial and ethnic groups in Washington.
     """
+    # create bar chart
+    title = 'Diabetes Prevalence vs. Poverty Rate '
+    title = title + 'by Race/Ethnicity in Washington'
     fig = px.bar(
         data,
         x='Race/Ethnicity',
         y=['Data Value', 'Poverty Rate'],
         barmode='group',
-        title='Diabetes Prevalence vs. Poverty Rate by Race/Ethnicity in Washington',
+        title=title,
         labels={
             'Race/Ethnicity': 'Race / Ethnicity',
             'value': 'Percentage / Rate (per 100 people)',
@@ -183,8 +192,11 @@ def q3_fig1(data: pd.DataFrame):
 def q3_fig2(data: pd.DataFrame):
     """
     Creates a scatter plot comparing poverty rate (%) against diabetes
-    prevalence (per 100 people) across racial and ethnic groups in all U.S. states.
+    prevalence (per 100 people) across racial and ethnic groups in all
+    U.S. states.
     """
+    title = 'Association Between Poverty Rate and '
+    title = title + "Diabetes Prevalence in All U.S. States"
     fig = px.scatter(
         data,
         x='Poverty Rate',
@@ -192,7 +204,7 @@ def q3_fig2(data: pd.DataFrame):
         color='Race/Ethnicity',
         symbol='Race/Ethnicity',
         hover_name='Location',
-        title='Association Between Poverty Rate and Diabetes Prevalence in All U.S. States',
+        title=title,
         labels={
             'Poverty Rate': 'Poverty Rate (%)',
             'Data Value': 'Diabetes Prevalence (per 100 people)',
