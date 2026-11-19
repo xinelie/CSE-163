@@ -3,7 +3,8 @@ Megha Nilesh Varma, Sandy Kwong
 CSE 163 AB
 Final Project
 
-Cleaning and filtering data for visualizations.
+Implements multiple methods to clean and filter diabetes, insurance,
+and poverty dataframes for visualization. 
 """
 
 # import libraries
@@ -84,8 +85,8 @@ def diabetes_data_q2(data: pd.DataFrame) -> pd.DataFrame:
 
 def poverty_data_q3_just_Wa(data: pd.DataFrame) -> pd.DataFrame:
     """
-    Applies mask to focus only on Washington state poverty data and filters
-    for relevant columns. Returns a cleaned pandas dataframe.
+    Returns filtered poverty pandas dataframe for racial/ethnic groups
+    in Washington state.
     """
     # masks
     poverty = data[data['Location'] == 'Washington'].copy()
@@ -106,8 +107,8 @@ def poverty_data_q3_just_Wa(data: pd.DataFrame) -> pd.DataFrame:
 
 def poverty_data_q3_multistate(data: pd.DataFrame) -> pd.DataFrame:
     """
-    Focuses on all-state poverty data and filters for relevant columns. Returns
-    a cleaned pandas dataframe.
+    Returns filtered poverty panda dataframe for different racial/ethnic
+    groups in all states available.
     """
     poverty_all = data[data['Location'] != 'United States'].copy()
     poverty_all = poverty_all.drop(columns=['Total'], errors='ignore')

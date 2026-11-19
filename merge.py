@@ -3,17 +3,19 @@ Megha Nilesh Varma, Sandy Kwong
 CSE 163 AB
 Final Project
 
-DOCUMENT!!!
+Implements multiple methods to merge diabetes dataframe with
+insurance and poverty dataframes.
 """
 
 # import libraries
 import pandas as pd
 
+
 # methods
 def q1(diabetes: pd.DataFrame, insurance: pd.DataFrame) -> pd.DataFrame:
     """
-    standardizes racial/ethnic group labels between the cleaned diabetes dataset and
-    merges with insurance data on race/ethnicity.
+    Returns a merged pandas dataframe with both diabetes and insurance data
+    by race/ethnicity.
     """
     # change race strings in diabetes data
     race_mapping = {
@@ -21,8 +23,10 @@ def q1(diabetes: pd.DataFrame, insurance: pd.DataFrame) -> pd.DataFrame:
         "Non-Hispanic Black": "African-American / Black",
         "Hispanic": "Hispanic / Latino"}
 
+    # replace headers
     diabetes = diabetes.copy()
-    diabetes['Stratification Group 1'] = (diabetes['Stratification Group 1'].replace(race_mapping))
+    diabetes['Stratification Group 1'] = (
+        diabetes['Stratification Group 1'].replace(race_mapping))
 
     # merge diabetes and insurance data
     merged = pd.merge(diabetes,
@@ -36,8 +40,8 @@ def q1(diabetes: pd.DataFrame, insurance: pd.DataFrame) -> pd.DataFrame:
 # q3 poverty and diabetes prevalence by race
 def q3(diabetes: pd.DataFrame, poverty: pd.DataFrame) -> pd.DataFrame:
     """
-    Standardizes racial/ethnic group labels between the cleaned diabetes dataset and
-    merges with poverty data on both state ('Location') and race/ethnicity.
+    Returns a merged pandas dataframe with both diabetes and poverty data
+    by race/ethnicity.
     """
     race_mapping = {
         "Non-Hispanic White": "White",
