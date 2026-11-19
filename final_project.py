@@ -18,8 +18,6 @@ import visualize
 
 
 def main():
-    # complete data processing here and call methods for visualization or analysis
-    
     # read csv files
     diabetes_data = pd.read_csv("diabetes.csv")
     poverty_data = pd.read_csv("poverty.csv", skiprows=2)
@@ -38,7 +36,7 @@ def main():
     q3_multi = merge.q3(q2, poverty_all)
 
     # visualizations
-    visualize.q1_fig1(q1) 
+    visualize.q1_fig1(q1)
     visualize.q1_fig2(q1)
     visualize.q2_fig1(q2)
     visualize.q2_fig2(q2)
