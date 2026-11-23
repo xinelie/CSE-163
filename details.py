@@ -23,7 +23,7 @@ def check_dimensions(name: str, df: pd.DataFrame):
 
 def check_missing_values(name: str, df: pd.DataFrame):
     """
-    Prints missing value counts and missing percentages for each column in df
+    Prints missing value counts and missing percentages for each column in df.
     """
     print("\nMISSING DATA:", name)
     missing_count = df.isna().sum()
@@ -39,7 +39,7 @@ def check_missing_values(name: str, df: pd.DataFrame):
 def check_quantitative(name: str, df: pd.DataFrame, quant_cols: list[str]):
     """
     Prints the 7-number summary (mean, std, min, 25%, 50%, 75%, max) for each
-    quantitative variable of interest
+    quantitative variable of interest.
     """
     print("\nQUANTITATIVE VARIABLES (7-NUMBER SUMMARY):", name)
     for col in quant_cols:
@@ -50,8 +50,7 @@ def check_quantitative(name: str, df: pd.DataFrame, quant_cols: list[str]):
 
 def check_categorical(name: str, df: pd.DataFrame, cat_cols: list[str]):
     """
-    Prints all unique values and their counts for each categorical variable
-
+    Prints all unique values and their counts for each categorical variable.
     """
     print("\nCATEGORICAL VARIABLES (UNIQUE VALUES & COUNTS):", name)
     for col in cat_cols:
