@@ -3,7 +3,8 @@ Megha Nilesh Varma, Sandy Kwong
 CSE 163 AB
 Final Project
 
-DOCUMENT!!!
+Creates plotly visualizations to represent patterns in the diabetes data, 
+merged diabetes and insurance data, and merged diabetes and poverty data.
 """
 
 # import libraries
